@@ -1,17 +1,18 @@
 #include <stdio.h>
 
+
 // this is the file for my assesment. dont mess with it. 
 
 int main() {
 
 char message[100];
 char letter;
-char alphabet[27] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'};
+//char alphabet[27] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'};
 int key;
 int iteration;
 int operation;
  
- scanf("%s", message);
+scanf("%[^\n]%*c",message);
  
 printf("1. Encryption of a message with a rotation cipher given the message text and rotation amount\n");
 printf("2. Decryption of a message encrypted with a rotation cipher given cipher text and rotation amount\n");
@@ -20,16 +21,17 @@ printf("4. Decryption of a message encrypted with a substitution cipher given ci
 
 scanf("%d", &operation);
 
+
 printf("Read %d\n", operation);
 
 switch (operation) {
     case 1: 
                     printf("Enter plaintext to be encypted: ");
                 	//gets(message); // insert comment explaining gets.
-                	printf("Read %s\n", message);
+                	printf("%s\n", message);
                 	
-                	printf("Enter key: ");
-                	scanf("%d", &key);
+                	printf("Enter key:\n ");
+                	scanf("%d",&key);
                 	printf("Read %d\n", key);
                 	
                 	for(iteration = 0; message[iteration] != '\0'; ++iteration){
