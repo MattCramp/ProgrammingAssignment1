@@ -4,10 +4,11 @@
 
 int main() {
 
- char alphabet[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'};
- char message[100];
- int key;
- int operation;
+char message[100];
+char letter;
+char alphabet[27] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'};
+int key;
+int iteration;
  
  scanf("%s", message)
  
@@ -21,11 +22,87 @@ scanf("d", &operation);
 printf("Read %d\n", operation);
 
 switch (operation) {
-    case 1: // operation 1
-    break;
+    case 1: 
+                    printf("Enter plaintext to be encypted: ");
+                	gets(message); // insert comment explaining gets.
+                	printf("Enter key: ");
+                	scanf("%d", &key);
+                	
+                	for(iteration = 0; message[iteration] != '\0'; ++iteration){
+                		letter = message[iteration];
+                		
+                		if(letter >= 'A' && letter <= 'Z'){
+                			letter = letter + key;
+                			
+                			if(letter > 'Z'){
+                				letter = letter - 'Z' + 'A' - 1;
+                			}
+                			
+                			message[iteration] = letter;
+                		}
+                		
+                		
+                		 else if(letter >= 'a' && letter <= 'z'){
+                			letter = letter + key;
+                			
+                			if(letter > 'z'){
+                				letter = letter - 'z' + 'a' - 1;
+                			}
+                			
+                			message[iteration] = letter;
+                			
+                			}
+                			
+                			}
+                	
+                	
+                	printf("Ciphertext message: %s", message);
+                	
+                	return 0;
+                }
+                
+                    break;
     
-    case 2: // operation 2
-    break;
+    case 2: 
+                    printf("Enter ciphertext to decrypt: ");
+                	gets(message);
+                	printf("Enter key: ");
+                	scanf("%d", &key);
+                	
+                	for(iteration = 0; message[iteration] != '\0'; ++iteration){
+                		letter = message[iteration];
+                		
+                		
+                			if(letter >= 'A' && letter <= 'Z'){
+                			letter = letter - key;
+                			
+                			if(letter < 'A'){
+                				letter = letter + 'Z' - 'A' + 1;
+                			}
+                			
+                			message[iteration] = letter;
+                		}
+                		
+                		
+                		else if(letter >= 'a' && letter <= 'z'){
+                			letter = letter - key;
+                			
+                			if(letter < 'a'){
+                				letter = letter + 'z' - 'a' + 1;
+                			}
+                			
+                			message[iteration] = letter;
+                		}
+                		
+                		
+                	}
+                	
+                	printf("Plaintext message: %s", message);
+                	
+                	return 0;
+                }
+                
+                    break;
     
     case 3: // operation 3
     break;
@@ -33,7 +110,10 @@ switch (operation) {
     case 4: // operation 4
     break
     
-    
+    default:
+    printf("Please enter an integer between 1 and 4");
+    break
+        
 } // end switch case
 
 
