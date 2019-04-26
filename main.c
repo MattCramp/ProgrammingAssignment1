@@ -1,3 +1,23 @@
+/*
+This program can encrypt and decrypt a rotation cipher with a known numerical key. 
+This program can encrypt and decrypt a substitution cipher with a known numerical key.
+This program can decrypt a rotation cipher with an unknown numerical key.
+
+User interface notes - The program first requires the user to enter the text to be encrypted or decrypted.
+The program then offers the user a menu detailing possible operations.
+A number between 1 and 5 is entered by the user matching the operation the user wishes to execute.
+The user is then prompted for a key. The length and nature of the key is specified by the program for the users conveniance. 
+
+Program uses scanf() statements which can be controlled in Eclipse Che by entering ./a.out into the terminal. Additionally there is a input file that can have text/operation number/key information entered into 
+it before running the program. 
+
+Flow control - program is controlled via main. User is prompted to enter a number between 1 and 5 which executes desired option. This is controlled via a switch case statement. 
+The switch case statement directs to program to the relevant function. The function is then run. The result of the operations within the function is printed to the terminal via a printf() statement.
+The program then returns to main, where a break statement in the switch case operation ends the program. 
+
+USER INSTRUCTIONS for program five are located in the comments above it.
+*/
+
 #include <stdio.h>
 #include <string.h> // <string.h> header allows access to string.h library.
 
@@ -55,12 +75,20 @@ int main()
 
  return 0;
 } 
-
+/*
+This function encrypts plaintext with a rotation cipher with a known key. 
+The inputs are plaintext, and a numerical key between 1 and 25.
+The return value is ciphertext.
+The function achieves this by taking each individual letter from the plaintext and adding the value of the key to it. 
+If the value of this 'overflows' (i.e Z plus 6 overflows from the alphabet) the overflow is trasferred back to A at the start of the alphabet.
+Each letter is converted to ciphertext. The message is then iterated and the next letter becomes encrypted. This continous until the entire message has been encrypted.
+The message must be 99 characters or less (including spaces). 
+*/
 
 void RotationEncrypt(char *message, int key) // Function defintion of option 1. 
 {
   
-    printf("Enter key: (Key must be a number between 1 and 25)\n"); // Prompts user to declare a key for the rotation cipher.
+    printf("Enter key - Key must be a number between 1 and 25: \n"); // Prompts user to declare a key for the rotation cipher.
     scanf("%d",&key); // Reads key declared by user and stores it as int key. Int key was initialised in main. 
     printf("Read %d\n", key); // Informs user via stdio standard out of operation they have selected. 
     int iteration; //Declaration of a int variable named iteration. Iteration shall be repeatedly indexed and will run through all possible alphabetical values.
@@ -71,7 +99,7 @@ void RotationEncrypt(char *message, int key) // Function defintion of option 1.
         {
             letter = message[iteration]; // An individual unique letter of message[iteration] is assigned to letter. 
                 		
-                if(letter >= '`' && letter <= 'z') // Lower-case letters are converted to upper-case. This detects any values in the ASCII lower-case value range. 
+                if(letter >= 'a' && letter <= 'z') // Lower-case letters are converted to upper-case. This detects any values in the ASCII lower-case value range. 
                 {
                     letter = letter - 32;  // 32 (difference between lower-case ASCII values and upper-case ASCII values) is minused from these values.
                 }
@@ -90,157 +118,196 @@ void RotationEncrypt(char *message, int key) // Function defintion of option 1.
                 			
                 			    message[iteration] = letter; // The value of letter is assigned to message. This is repeated for all iterations. 
        }
-            printf("Ciphertext message: %s", message); // Message is printed as a string after all required iterations have run. 
+            printf("Ciphertext message: %s\n", message); // Message is printed as a string after all required iterations have run. 
 }
                 	
-
+/*
+This function decrypts ciphertext with a rotation cipher with a known key. 
+The inputs are ciphertext, and a numerical key between 1 and 25.
+The return value is plaintext.
+The function achieves this by taking each individual letter from the ciphertext and subtracting the value of the key from it. 
+If the value of this 'underflows' (i.e A minus 6 underflows from the alphabet) the underflow is trasferred back to Z at the end of the alphabet.
+Each letter is converted to plaintext. The message is then iterated and the next letter becomes decrypted. This continous until the entire message has been decrypted.
+The message must be 99 characters or less (including spaces). 
+*/
 
 void RotationDecrypt(char *message, int key) // Function definition of option 2. 
 {
     
-    printf("Enter key: (Key must be a number between 1 and 25\n"); // Prompts user to declare a key for the rotation cipher. 
-    scanf("%d", &key);
-    int iteration;
-    char letter;
-    int rotation;
-                	
-       	    
+    printf("Enter key - Key must be a number between 1 and 25: \n"); // Prompts user to declare a key for the rotation cipher. 
+    scanf("%d", &key); // Reads key declared by user and stores it as int key. Int key was initialised in main. 
+    int iteration; //Declaration of a int variable named iteration. Iteration shall be repeatedly indexed and will run through all possible alphabetical values.
+    char letter; // Declares a char named letter. Letter gets modified by the cipher key. Its value is then assigned to an individual element of the message array. This is indexed through the length of the message.
                 	    
-                	    
-                	    
-                	    
-                	    
-                	    for(iteration = 0; message[iteration] != '\0'; ++iteration){
-                		letter = message[iteration];
-                		
-                		if(letter >= 97 && letter <= 122){
-                			letter = letter - key;
-                			
-                			if(letter < 97){
-                				letter = letter + 26;
-                			}
-                			
-                			message[iteration] = letter - 32;
-                		}
-                			
-                		
-                			//else if(letter >= 65 && letter <= 90){
-                		    else if(letter >= 65 && letter <= 90){
-                			letter = letter - key;
-                			
-                			if(letter < 65){
-                				letter = letter + 26;
-                			}
-                			
-                			message[iteration] = letter;
-                		}
-                		
-                		
-                	}
-                	
-                	printf("Plaintext message: %s", message);
-                	
-                   } // End Function Void RotationDecrypt
-                   
-   
-
-void SubstitutionEncrypt(char *message, char *encryptionKey) 
-{
-    int iteration = 0;
-    printf("Enter Encryption Key: \n");
-    scanf("%s", encryptionKey);
-    
-        for (iteration = 0; iteration < strlen(message); iteration++)
+        for(iteration = 0; message[iteration] != '\0'; ++iteration) // int iteration is initialised at 0. For loop runs until \0 (termination at end of a string) is reached. Iteration is indexed.
         {
-            char letter = message[iteration];
-            
-                if (letter >= 'A' && letter <= 'Z')
+            letter = message[iteration]; // An individual unique letter of message[iteration] is assigned to letter. 
+                		
+                if(letter >= 'a' && letter <= 'z') // Lower-case letters are converted to upper-case. This detects any values in the ASCII lower-case value range.
                 {
-                letter = encryptionKey[letter - 'A'];
+                    letter = letter - key; // The value of letter minus the value of key is assigned to letter. 
+                			
+                        if(letter < 'a') // If the value of letter is greater than 'a'
+                        {
+	                        letter = letter + 26; // The value of letter + 26 is assigned to letter. 
+                        }
+                			
+                                message[iteration] = letter - 32; // The value of letter minus 32 is assigned to message. This is repeated for all iterations. 32 is minused to convert from lower case to upper case. 
                 }
-                    message[iteration] = letter;
+                			
+                		
+                			
+                                    else if(letter >= 'A' && letter <= 'Z') // This detects any values in ASCII upper-case range.
+                                    {
+                                        letter = letter - key; // The value of letter minus key is assigned to letter. This removes the rotation and produces plaintext.
+                			
+                                            if(letter < 'A') // If the value of letter is greater than 'A'
+                                            {
+                                                letter = letter + 26; // The value of letter plus 26 is assigned to letter. 
+                                            }
+                			
+                                                    message[iteration] = letter; // The value of letter is assigned to message. This is repeated for all iterations. 
+                                    }
+                		
+                		
+    }
+                	
+    printf("Plaintext message: %s\n", message); // Message is printed as a string after all required iterations have run. 
+                	
+} 
+/* 
+This function encrypts plaintext with a substitution cipher with a known key. 
+The inputs are plaintext and an encryption key. The encryption key is a known string of continous letters that is 26 letters long. The key cannot be longer than this.
+The return value is ciphertext. 
+The function achieves this by taking each individual letter from the plaintext and swapping it with the correspoding letter from the encryption key alphabet. The nth letter of the plaintext
+is associated with the nth letter of the ciphertext. Since they encryption key is generally a random combination of the 26 letters of the alphabet, there are 26! possible combinations. 
+The message must be 99 characters or less. 
+*/
+
+void SubstitutionEncrypt(char *message, char *encryptionKey) // Function definition of option 3.
+{
+    int iteration = 0;  //Declaration of a int variable named iteration. Iteration shall be repeatedly indexed and will run through all possible alphabetical values.
+    printf("Enter Encryption Key: - Key must be a continous string of 26 upper-case letters \n"); // Prompts user to declare a key for the substitution cipher.
+    scanf("%s", encryptionKey); // Reads key declared by user and stores it as char encryptionKey. Char encryptionKey was initialised in main. 
+    
+        for (iteration = 0; iteration < strlen(message); iteration++) // int iteration is initialised at 0. For loop runs until value is one < the length of the message. Iteration is indexed.
+        {
+            char letter = message[iteration]; // The value of message[iteration] is assigned to letter. 
+            
+                if (letter >= 'A' && letter <= 'Z') // Ensures the value of letter is within the ASCII upper-case range.
+                {
+                letter = encryptionKey[letter - 'A']; // EncryptionKey array of (letter minus 'A') is assigned to letter. This 'substitutes' the two alphabets.
+                }
+                    message[iteration] = letter; // The value of letter is assigned to message[iteration]. This alters the value of message with each iteration.
         }
-            printf("CipherText message: %s\n", message);
+            printf("CipherText message: %s\n", message); // Message is printed as a string after all required iterations have run.
 }
 
-void SubstitutionDecrypt(char*message, char*encryptionKey) 
-{
-    int iteration;
-    int iterationTwo = 0;
-    int letter;
-    printf("Enter a encryption key: \n");
-    scanf("%s", encryptionKey);
+/* 
+This function decrypts ciphertext with a substitution cipher and a known key. 
+The inputs are ciphertext and an encryption key. The encryption key is a known string of continous letters that is 26 letters long. The key cannot be longer than this.
+The return value is plaintext.
+The function achieves this by taking each individual letter from the ciphertext and swapping it with the correspoding letter from the encryption key alphabet. The nth letter of the ciphertext
+is associated with the nth letter of the plaintext. Since they encryption key is generally a random combination of the 26 letters of the alphabet, there are 26! possible combinations. 
+The message must be 99 characters or less. 
+*/
 
-        for (iteration = 0; message[iteration] != '0'; iteration++) 
+void SubstitutionDecrypt(char*message, char*encryptionKey) // Function definition of option 4.
+{
+    int iteration; // Declaration of a int variable named iteration. Iteration shall be repeatedly indexed and will run through all possible alphabetical values.
+    int iterationTwo = 0; // Declaration of an int variable named iterationTwo. IterationTwo shall be repeatedly indexed and will run through all possible alphabetical values.
+    int letter; // int variable named letter. Holds an alphabetical value that is modified.
+    printf("Enter a encryption key -Key must be a continous string of 26 upper-case letters \n"); // Prompts user to declare a key for the substitution cipher.
+    scanf("%s", encryptionKey); // Reads key declared by user and stores it as char encryptionKey. Char encryptionKey was initialised in main. 
+
+        for (iteration = 0; message[iteration] != '0'; iteration++) // int iteration is initialised at 0; For loop runs until \0 (termination at end of a string) is reached. Iteration is indexed.
         {
-            letter = message[iteration];
-                if (letter >= 96 && letter <= 'z') 
+            letter = message[iteration]; // Value of message array is assigned to letter. This is iterated with each loop.
+                if (letter >= 'a' && letter <= 'z') // Detects message in ASCII lower-case range.
                 {
-                    letter = letter - 32;
+                    letter = letter - 32; // 32 is minused from letter to convert it to upper-case.
                 }
-                        if(letter >= 'A' && letter <= 'Z') 
+                        if(letter >= 'A' && letter <= 'Z') // Detects if message is in ASCII upper-case range.
                         {
-                            for (iterationTwo = 0; iterationTwo < 27; iterationTwo++) 
+                            for (iterationTwo = 0; iterationTwo < 27; iterationTwo++) // For iterationTwo is initilised at 0; iteration two is indexed until < 26 is reached, iterationTwo is indexed with each loop.
                             {
-                                if(message[iteration] == encryptionKey[iterationTwo]) 
+                                if(message[iteration] == encryptionKey[iterationTwo]) // If the value of the particular message iteration is equal to the value of the encryption key for the given iteration
                                 {
-                                    break;
+                                    break; // escape out of loop
                         
                                 } 
                     
                             }
-                                        message[iteration] = iterationTwo + 'A';
+                                        message[iteration] = iterationTwo + 'A'; // The value of iterationTwo + 'A' is assigned to message for the given iteration.
                         }
     
         }
-            printf("PlainText message: %s\n", message);
+            printf("PlainText message: %s\n", message); // Message is printed as a string after all required iterations have run.
    
 } 
 
+/*
+This function decrypts ciphertext with a rotation cipher. It is intended that this fucntion is used with an unknown key.  
+The input is ciphertext.
+The return value is plaintext and an encryption key.
+The function achieves this by taking each individual letter from the ciphertext and subtracting the value of the key from it. 
+If the value of this 'underflows' (i.e A minus 6 underflows from the alphabet) the underflow is trasferred back to Z at the end of the alphabet.
+Each letter is converted to plaintext. The message is then iterated and the next letter becomes decrypted. This continous until the entire message has been decrypted.
+The above process is executed for a key initialised at one. The key value is indexed until it reaches 25. This is managed via a int variable called count. This ensures that all possible keys are tested. 
+The message must be 99 characters or less (including spaces). 
 
-void RotationDecrypt_NO_Key(char *message, int key) 
+
+USER INSTRUCTIONS - Enter the first few words of the ciphertext. Execute the program. Look through the output and find the statement with english plaintext. Take note of the decryption key the program used.
+Enter the entire message and the decryption key into operation 2. The entire message will be decrypted. 
+*/
+
+void RotationDecrypt_NO_Key(char *message, int key) // Function definition of item 5.
 {
-    int iteration;
-    char letter;
-    int count = 1;
-        for (count = 1; count <=26; count++)  
+    int iteration; // Declaration of a int variable named iteration. Iteration shall be repeatedly indexed and will run through all possible alphabetical values.
+    char letter; // int variable named letter. Holds an alphabetical value that is modified.
+    int count = 1; // Counting variable of type int. This is used to loop the program through all relevant options to find decrypt the cipher text. 
+    
+        for (count = 1; count <=26; count++)  // Count is initialised at 1, count is iterated until it is <= 26; count is iterated with each location. 
         {
-            for(iteration = 0; message[iteration] != '\0'; ++iteration)
+            for(iteration = 0; message[iteration] != '\0'; ++iteration) // int iteration is initialised at 0; For loop runs until \0 (termination at end of a string) is reached. Iteration is indexed.
             {
-                letter = message[iteration];
-                key = 1;
-                    if(letter >= 'A' && letter <= 'Z')
+                letter = message[iteration]; // Value of message array is assigned to letter. This is iterated with each loop
+                key = 1; // Key is initialised at 1
+                    if(letter >= 'A' && letter <= 'Z') // If key is >= 'A' and letter <= Z
                     {
-                        letter = letter - key;
+                        letter = letter - key; // The value of letter minus key is assigned to letter. This decodes the ciphertext.
                 			
-                		    if(letter < 'A')
+                		    if(letter < 'A') // If letter < A
                 		    {
-                				letter = letter + 'Z' - 'A' + 1;
+                				//letter = letter + 'Z' - 'A' + 1; // The value of letter plus 'Z' - 'A' + 1 is assigned to letter. 
+                				letter = letter + 1; // The value of letter plus one is assigned to letter. 
                 			}
                 			
-                			        message[iteration] = letter;
+                			        message[iteration] = letter; // Modified value of letter is assigned to message for the given iteration. 
                 	}
                 	
-                		                else if(letter >= 'a' && letter <= 'z')
+                		                else if(letter >= 'a' && letter <= 'z') // Detects lower-case ASCII values
                 		                {
-                			                letter = letter - key;
+                			                letter = letter - key; // Value of key is minused from letter. This is assigned to letter. This decodes the ciphertext.
                 			
-                			                    if(letter < 'a')
+                			                    if(letter < 'a') // If letter < 'a'
                 			                    {
-                				                    letter = letter + 'z' - 'a' + 1;
+                				                    //letter = letter + 'z' - 'a' + 1;
+                				                    letter = letter + 1; // The value of letter plus 1 is added to letter. This brings it back into the ASCII lower-case range. 
                 			                    }
                 			
-                			                            message[iteration] = letter;
+                			                            message[iteration] = letter; // Modified value of letter is assigned to message for the given iteration.
                 		                }
                 		
-                		                                    key = key++;
+                		                                    key = key++; // The value of key plus key is assigned to key. This is done to allow for decryption of all possible keys. 
             }
                 	
-                printf("Plaintext message: %s  Key Number:  %d\n", message, count); 
+                printf("Plaintext message: %s  Key Number:  %d\n", message, count); // Message is printed as a string after all required iterations have run. The number of each key is given to the user.
         }
                 	
-            printf("Check the decoded text outputs. Find the output that is English plain text. Note the key number for the English plain text.\n");
-            printf("Enter the full message with correct key number into operation 2. The CipherText text will be decoded.");
+            printf("Check the decoded text outputs. Find the output that is English plain text. Note the key number for the English plain text.\n"); // Instructions for the user to decode the remainder of the message.
+            printf("Enter the full message with correct key number into operation 2. The CipherText text will be decoded."); // Instructions for the user to decode the remainder of the message by entering the message 
+            //into operation 2 with the known key.
 }
                 	
                 	
