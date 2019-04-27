@@ -300,7 +300,7 @@ void RotationDecrypt_NO_Key(char *message, int key) // Function definition of it
                 			                            message[iteration] = letter; // Modified value of letter is assigned to message for the given iteration.
                 		                }
                 		
-                		                                    key = key++; // The value of key plus key is assigned to key. This is done to allow for decryption of all possible keys. 
+                		                                    key = key + 1; // The value of key plus key is assigned to key. This is done to allow for decryption of all possible keys. 
             }
                 	
                 printf("Plaintext message: %s  Key Number:  %d\n", message, count); // Message is printed as a string after all required iterations have run. The number of each key is given to the user.
