@@ -8,14 +8,15 @@ The program then offers the user a menu detailing possible operations.
 A number between 1 and 5 is entered by the user matching the operation the user wishes to execute.
 The user is then prompted for a key. The length and nature of the key is specified by the program for the users conveniance. 
 
-Program uses scanf() statements which can be controlled in Eclipse Che by entering ./a.out into the terminal. Additionally there is a input file that can have text/operation number/key information entered into 
-it before running the program. 
+Program uses scanf() statements which can be controlled in Eclipse Che by entering ./a.out into the terminal. 
 
-Flow control - program is controlled via main. User is prompted to enter a number between 1 and 5 which executes desired option. This is controlled via a switch case statement. 
-The switch case statement directs to program to the relevant function. The function is then run. The result of the operations within the function is printed to the terminal via a printf() statement.
+Flow control - Program is controlled via main. User is prompted to enter a number between 1 and 5 which executes desired option. 
+This is controlled via a switch case statement. 
+The switch case statement directs to program to the relevant function. 
+The function is then run. The result of the operations within the function is printed to the terminal via a printf() statement.
 The program then returns to main, where a break statement in the switch case operation ends the program. 
 
-USER INSTRUCTIONS for program five are located in the comments above it.
+USER INSTRUCTIONS FOR PROGRAM FIVE ARE LOCATED IN THE COMMENTS ABOVE IT.
 */
 
 #include <stdio.h>
@@ -279,8 +280,8 @@ void RotationDecrypt_NO_Key(char *message, int key) // Function definition of it
                 			
                 		    if(letter < 'A') // If letter < A
                 		    {
-                				//letter = letter + 'Z' - 'A' + 1; // The value of letter plus 'Z' - 'A' + 1 is assigned to letter. 
-                				letter = letter + 1; // The value of letter plus one is assigned to letter. 
+                				letter = letter + 'Z' - 'A' + 1; // The value of letter plus 'Z' - 'A' + 1 is assigned to letter. 
+                				
                 			}
                 			
                 			        message[iteration] = letter; // Modified value of letter is assigned to message for the given iteration. 
@@ -292,8 +293,8 @@ void RotationDecrypt_NO_Key(char *message, int key) // Function definition of it
                 			
                 			                    if(letter < 'a') // If letter < 'a'
                 			                    {
-                				                    //letter = letter + 'z' - 'a' + 1;
-                				                    letter = letter + 1; // The value of letter plus 1 is added to letter. This brings it back into the ASCII lower-case range. 
+                				                    letter = letter + 'z' - 'a' + 1; // The value of letter + 'z' - 'a' + 1 is assigned to the letter. 
+                				                    
                 			                    }
                 			
                 			                            message[iteration] = letter; // Modified value of letter is assigned to message for the given iteration.
