@@ -149,7 +149,7 @@ void RotationDecrypt(char *message, int key) // Function definition of option 2.
                 		
                 if(letter >= 'a' && letter <= 'z') // Lower-case letters are converted to upper-case. This detects any values in the ASCII lower-case value range.
                 {
-                    letter = letter - key; // The value of letter minus the value of key is assigned to letter. 
+                    letter = letter - key; // The value of letter minus the value of key is assigned to letter. This removed the enryption.
                 			
                         if(letter < 'a') // If the value of letter is greater than 'a'
                         {
