@@ -1,6 +1,6 @@
 /*
 This program can encrypt and decrypt a rotation cipher with a known numerical key. 
-This program can encrypt and decrypt a substitution cipher with a known numerical key.
+This program can encrypt and decrypt a substitution cipher with a known alphabetical key.
 This program can decrypt a rotation cipher with an unknown numerical key.
 
 User interface notes - The program first requires the user to enter the text to be encrypted or decrypted.
@@ -8,11 +8,12 @@ The program then offers the user a menu detailing possible operations.
 A number between 1 and 5 is entered by the user matching the operation the user wishes to execute.
 The user is then prompted for a key. The length and nature of the key is specified by the program for the users conveniance. 
 
-Program uses scanf() statements which can be controlled in Eclipse Che by entering ./a.out into the terminal. 
+Program uses scanf() statements which can be controlled in Eclipse Che by entering ./a.out into the terminal after opening this
+in terminal.
 
 Flow control - Program is controlled via main. User is prompted to enter a number between 1 and 5 which executes desired option. 
 This is controlled via a switch case statement. 
-The switch case statement directs to program to the relevant function. 
+The switch case statement directs the program to the relevant function. 
 The function is then run. The result of the operations within the function is printed to the terminal via a printf() statement.
 The program then returns to main, where a break statement in the switch case operation ends the program. 
 
@@ -81,9 +82,10 @@ This function encrypts plaintext with a rotation cipher with a known key.
 The inputs are plaintext, and a numerical key between 1 and 25.
 The return value is ciphertext.
 The function achieves this by taking each individual letter from the plaintext and adding the value of the key to it. 
-If the value of this 'overflows' (i.e Z plus 6 overflows from the alphabet) the overflow is trasferred back to A at the start of the alphabet.
+If the value of this 'overflows' (i.e 'Z' plus 6 overflows from the alphabet) the overflow is trasferred back to 'A' at the start of the alphabet.
 Each letter is converted to ciphertext. The message is then iterated and the next letter becomes encrypted. This continous until the entire message has been encrypted.
 The message must be 99 characters or less (including spaces). 
+This function can be used with lower-case and upper-case letters.
 */
 
 void RotationEncrypt(char *message, int key) // Function defintion of option 1. 
@@ -130,6 +132,7 @@ The function achieves this by taking each individual letter from the ciphertext 
 If the value of this 'underflows' (i.e A minus 6 underflows from the alphabet) the underflow is trasferred back to Z at the end of the alphabet.
 Each letter is converted to plaintext. The message is then iterated and the next letter becomes decrypted. This continous until the entire message has been decrypted.
 The message must be 99 characters or less (including spaces). 
+This program can be used with lower-case or upper-case letters.
 */
 
 void RotationDecrypt(char *message, int key) // Function definition of option 2. 
@@ -154,9 +157,7 @@ void RotationDecrypt(char *message, int key) // Function definition of option 2.
                         }
                 			
                                 message[iteration] = letter - 32; // The value of letter minus 32 is assigned to message. This is repeated for all iterations. 32 is minused to convert from lower case to upper case. 
-                }
-                			
-                		
+                }             		
                 			
                                     else if(letter >= 'A' && letter <= 'Z') // This detects any values in ASCII upper-case range.
                                     {
@@ -183,6 +184,7 @@ The return value is ciphertext.
 The function achieves this by taking each individual letter from the plaintext and swapping it with the correspoding letter from the encryption key alphabet. The nth letter of the plaintext
 is associated with the nth letter of the ciphertext. Since they encryption key is generally a random combination of the 26 letters of the alphabet, there are 26! possible combinations. 
 The message must be 99 characters or less. 
+This function requires key and message to be upper-case.
 */
 
 void SubstitutionEncrypt(char *message, char *encryptionKey) // Function definition of option 3.
@@ -211,6 +213,7 @@ The return value is plaintext.
 The function achieves this by taking each individual letter from the ciphertext and swapping it with the correspoding letter from the encryption key alphabet. The nth letter of the ciphertext
 is associated with the nth letter of the plaintext. Since they encryption key is generally a random combination of the 26 letters of the alphabet, there are 26! possible combinations. 
 The message must be 99 characters or less. 
+This program can be used with lower-case or upper-case letters and key.
 */
 
 void SubstitutionDecrypt(char*message, char*encryptionKey) // Function definition of option 4.
@@ -256,6 +259,7 @@ If the value of this 'underflows' (i.e A minus 6 underflows from the alphabet) t
 Each letter is converted to plaintext. The message is then iterated and the next letter becomes decrypted. This continous until the entire message has been decrypted.
 The above process is executed for a key initialised at one. The key value is indexed until it reaches 25. This is managed via a int variable called count. This ensures that all possible keys are tested. 
 The message must be 99 characters or less (including spaces). 
+This program requires the upper-case letters. 
 
 
 USER INSTRUCTIONS - Enter the first few words of the ciphertext. Execute the program. Look through the output and find the statement with english plaintext. Take note of the decryption key the program used.
