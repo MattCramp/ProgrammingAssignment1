@@ -11,7 +11,7 @@ The user is then prompted for a key. The length and nature of the key is specifi
 Program uses scanf() statements which can be controlled in Eclipse Che by entering ./a.out into the terminal after opening this
 in terminal.
 
-Flow control - Program is controlled via main. User is prompted to enter a number between 1 and 5 which executes desired option. 
+Flow control - Program is controlled via main(. User is prompted to enter a number between 1 and 5 which executes desired option. 
 This is controlled via a switch case statement. 
 The switch case statement directs the program to the relevant function. 
 The function is then run. The result of the operations within the function is printed to the terminal via a printf() statement.
